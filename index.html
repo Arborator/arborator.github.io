@@ -1,244 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<html>
-<head><title>Arborator</title>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+  <head>
 
-<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.18.custom.css" media="screen" />
-<link href="css/arborator.css" rel="stylesheet" type="text/css">
-<link rel="icon" type="image/png" href="favicon.ico">
-<script type="text/javascript" src="script/jquery.js"></script>
-<script type="text/javascript" src="script/raphael.js"></script>
-<script type="text/javascript" src="script/jquery-ui-1.8.18.custom.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<script type="text/javascript">
+    <title>Arborator</title>
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-11144858-1']);
-  _gaq.push(['_setDomainName', '.ilpga.fr']);
-  _gaq.push(['_trackPageview']);
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-  
-var BrowserDetect = {
-	init: function () {
-		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
-		this.version = this.searchVersion(navigator.userAgent)
-			|| this.searchVersion(navigator.appVersion)
-			|| "an unknown version";
-		this.OS = this.searchString(this.dataOS) || "an unknown OS";
-	},
-	searchString: function (data) {
-		for (var i=0;i<data.length;i++)	{
-			var dataString = data[i].string;
-			var dataProp = data[i].prop;
-			this.versionSearchString = data[i].versionSearch || data[i].identity;
-			if (dataString) {
-				if (dataString.indexOf(data[i].subString) != -1)
-					return data[i].identity;
-			}
-			else if (dataProp)
-				return data[i].identity;
-		}
-	},
-	searchVersion: function (dataString) {
-		var index = dataString.indexOf(this.versionSearchString);
-		if (index == -1) return;
-		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
-	},
-	dataBrowser: [
-		{
-			string: navigator.userAgent,
-			subString: "Chrome",
-			identity: "Chrome"
-		},
-		{ 	string: navigator.userAgent,
-			subString: "OmniWeb",
-			versionSearch: "OmniWeb/",
-			identity: "OmniWeb"
-		},
-		{
-			string: navigator.vendor,
-			subString: "Apple",
-			identity: "Safari",
-			versionSearch: "Version"
-		},
-		{
-			prop: window.opera,
-			identity: "Opera",
-			versionSearch: "Version"
-		},
-		{
-			string: navigator.vendor,
-			subString: "iCab",
-			identity: "iCab"
-		},
-		{
-			string: navigator.vendor,
-			subString: "KDE",
-			identity: "Konqueror"
-		},
-		{
-			string: navigator.userAgent,
-			subString: "Firefox",
-			identity: "Firefox"
-		},
-		{
-			string: navigator.vendor,
-			subString: "Camino",
-			identity: "Camino"
-		},
-		{		// for newer Netscapes (6+)
-			string: navigator.userAgent,
-			subString: "Netscape",
-			identity: "Netscape"
-		},
-		{
-			string: navigator.userAgent,
-			subString: "MSIE",
-			identity: "Explorer",
-			versionSearch: "MSIE"
-		},
-		{
-			string: navigator.userAgent,
-			subString: "Gecko",
-			identity: "Mozilla",
-			versionSearch: "rv"
-		},
-		{ 		// for older Netscapes (4-)
-			string: navigator.userAgent,
-			subString: "Mozilla",
-			identity: "Netscape",
-			versionSearch: "Mozilla"
-		}
-	],
-	dataOS : [
-		{
-			string: navigator.platform,
-			subString: "Win",
-			identity: "Windows"
-		},
-		{
-			string: navigator.platform,
-			subString: "Mac",
-			identity: "Mac"
-		},
-		{
-			   string: navigator.userAgent,
-			   subString: "iPhone",
-			   identity: "iPhone/iPod"
-	    },
-		{
-			string: navigator.platform,
-			subString: "Linux",
-			identity: "Linux"
-		}
-	]
+    <link href="css/bootstrap-material-design.css" rel="stylesheet">
 
-};
-BrowserDetect.init();
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-</script></head>
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
 
+  </head>
 
+  <body>
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle">
+          <i class="fa fa-times"></i>
+        </a>
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="#top">Arborator</a>
+        </li>
+        <li>
+          <a class="js-scroll-trigger" href="#top">Home</a>
+        </li>
+        <li>
+          <a class="js-scroll-trigger" href="#about">Visualization</a>
+        </li>
+        <li>
+          <a class="js-scroll-trigger" href="#services">Services</a>
+        </li>
+      </ul>
+    </nav>
 
-<body id="body">
+    <!-- Header -->
+    <header class="header bg-grey" id="top">
+      
+      <div class="text-vertical-center">
+          <img src="img/arborator_logo.png"></img>
+        <h1>Arborator</h1>
+        <h3>Collaboratively annotating dependency corpora</h3>
+        <br>
+        <a href="#services" class="btn btn-primary btn-dark btn-lg btn-raised js-scroll-trigger">Versions</a>
+      </div>
+    </header>
 
-<div class="arbortitle fg-toolbar ui-widget-header ui-helper-clearfix">
-	<a href='.' style='position: absolute;left:0px;'><img src="images/arboratorNano.png" border="0"></a>
-	<span style='text-align:center;margin:0 auto;position: relative;top:0px;' id='sentinfo'>Welcome to the Arborator website!</span>
-</div>
+    <!-- About -->
+    <section id="about" class="about bg-grey">
+      <div class="container ">
+        <div class="well" style="overflow-x:auto;">
+        <conll>1&Tab;est-ce&Tab;est-ce&Tab;CSU&Tab;CSU&Tab;_&Tab;0&Tab;root&Tab;_&Tab;_&NewLine;2&Tab;-ce&Tab;ce&Tab;CLS&Tab;CSU&Tab;_&Tab;1&Tab;dep&Tab;_&Tab;_&NewLine;3&Tab;vous&Tab;vous&Tab;CLS&Tab;CLS&Tab;_&Tab;4&Tab;suj&Tab;_&Tab;_&NewLine;4&Tab;pourriez&Tab;pouvoir&Tab;VRB&Tab;VRB&Tab;_&Tab;1&Tab;dep&Tab;_&Tab;_&NewLine;5&Tab;décrire&Tab;décrire&Tab;VNF&Tab;VNF&Tab;_&Tab;4&Tab;comp&Tab;_&Tab;_&NewLine;6&Tab;euh&Tab;euh&Tab;INT&Tab;INT&Tab;_&Tab;5&Tab;dm&Tab;_&Tab;_&NewLine;7&Tab;les&Tab;le&Tab;DET&Tab;DET&Tab;_&Tab;8&Tab;spe&Tab;_&Tab;_&NewLine;8&Tab;déplacements&Tab;déplacement&Tab;NOM&Tab;NOM&Tab;_&Tab;5&Tab;comp&Tab;_&Tab;_&NewLine;9&Tab;avec&Tab;avec&Tab;PRE&Tab;PRE&Tab;_&Tab;5&Tab;ad&Tab;_&Tab;_&NewLine;10&Tab;précision&Tab;précision&Tab;NOM&Tab;NOM&Tab;_&Tab;9&Tab;dep&Tab;_&Tab;_&NewLine;11&Tab;une&Tab;un&Tab;DET&Tab;DET&Tab;_&Tab;12&Tab;spe&Tab;_&Tab;_&NewLine;12&Tab;journée&Tab;journée&Tab;NOM&Tab;NOM&Tab;_&Tab;8&Tab;para&Tab;_&Tab;_&NewLine;13&Tab;eh ben&Tab;eh ben&Tab;INT&Tab;INT&Tab;_&Tab;12&Tab;dm&Tab;_&Tab;_&NewLine;14&Tab;soit&Tab;soit&Tab;COO&Tab;COO&Tab;_&Tab;16&Tab;mark&Tab;_&Tab;_&NewLine;15&Tab;on&Tab;on&Tab;CLS&Tab;CLS&Tab;_&Tab;16&Tab;suj&Tab;_&Tab;_&NewLine;16&Tab;travaille&Tab;travailler&Tab;VRB&Tab;VRB&Tab;_&Tab;0&Tab;root&Tab;_&Tab;_&NewLine;17&Tab;par&Tab;par&Tab;PRE&Tab;PRE&Tab;_&Tab;12&Tab;dep&Tab;_&Tab;_&NewLine;18&Tab;exemple&Tab;exemple&Tab;NOM&Tab;NOM&Tab;_&Tab;17&Tab;dep&Tab;_&Tab;_</conll>
+        </div>
+      </div>
+    </section>
 
+    <!-- Services -->
+    <section id="services" class="services">
+      <div class="container">
+        <div class="row text-center text-justify">
+          <div class="col-lg-10 mx-auto">
+            <h2>Versions</h2>
+            <hr class="small">
+            <div class="row">
+              <div class="col-md-4 col-sm-6">
+                <div class="service-item">
+                    <div class="panel panel-info bg-white">
+                      <div class="panel-heading">
+                          <span class="fa-stack fa-4x">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-picture-o fa-stack-1x text-info"></i>
+                            </span>
+                        <h4>
+                          <strong>Draft</strong>
+                        </h4>
+                      </div>
+                        <div class="panel-body">
+                            
+                          <p>A visualization script for CoNLL dependency trees. It is written in pure javascript, easy to plug in any website, fast and entirely customizable !</p>
+                          
+                        </div>
+                        <div class="panel-footer bg-white">
+                            <a href="https://github.com/Arborator/arborator-draft" target="_blank" class="btn btn-light btn-primary btn-raised"><i class="fa fa-github"></i> Github</a>
+                        </div>
+                      </div>
+                  
+                  
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <div class="service-item">
 
-<div id="dialog" style="display: none;width:500px" title="Login">
-</div>
+                    <div class="panel panel-info bg-white">
+                        <div class="panel-heading">
+                            <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-laptop fa-stack-1x text-info"></i>
+                              </span>
+                              <h4>
+                                <strong>Site</strong>
+                              </h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>A java executable to automoatically create a website for visualize and browse an entire corpus of multiple CoNLL files. Handy to navigate through a massive corpus or to show your treebank to your teammates !</p>
+                            
+                        </div>
+                        <div class="panel-footer bg-white">
+                            <a href="https://github.com/Arborator/arborator-site" target="_blank" class="btn btn-light btn-primary btn-raised"><i class="fa fa-github"></i> Github</a>
+                        </div>
+                      </div>
+                </div>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <div class="service-item">
+                    <div class="panel panel-info bg-white">
+                        <div class="panel-heading">
+                          <span class="fa-stack fa-4x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-server fa-stack-1x text-info"></i>
+                          </span>
+                          <h4>
+                            <strong>Server</strong>
+                          </h4>
+                        </div>
+                        <div class="panel-body"><p>A collaborative way to visualize, edit CoNLL trees. Host your own version and manage different access to differents users. Handy for collaborative annotation, validation, and teaching !</p>
+                          
+                        </div>
+                        <div class="panel-footer bg-white">
+                            <a href="https://arborator.ilpga.fr/" target="_blank" class="btn btn-light btn-primary btn-raised"><i class="fa fa-external-link"></i> Arborator Server</a>
+                        </div>
+                      </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+            <!-- /.row (nested) -->
+          </div>
+          <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container -->
+    </section>
+    
 
-<div class='center'>
-	<div class="ui-widget ui-widget-content ui-corner-all" style="font-size:23px;margin-top:37px;padding:10px">
-	
-	<div style="text-align:center;">
-		<object height="300" width="500" data="images/arborator.svg" type="image/svg+xml"></object>
-	
-	
+    <!-- Footer -->
+    <footer class="bg-grey">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 mx-auto text-center">
+            <hr class="small">
+            <p class="text-muted">Copyright &copy; Your Website 2017</p>
+          </div>
+        </div>
+      </div>
+      <a id="to-top" href="#top" class="btn btn-dark btn-lg js-scroll-trigger">
+        <i class="fa fa-chevron-up fa-fw fa-1x"></i>
+      </a>
+    </footer>
 
-<p style="text-align:center;">The Arborator software is aimed at collaboratively annotating dependency corpora.</p>
-	<div class='ui-state-highlight ui-corner-all' style='padding: 1em; margin: 20px;clear: both;'><a href='q.cgi'><img src="images/q.png" border="0"><br/>Quick access without login:<br/>Simple graphical editor of CoNLL files</a></div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/material.js"></script>
+    <script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.js"></script>
 
-	<div class="ui-state-highlight ui-corner-all" style="padding-bottom: 1em; margin: 20px;">
-<div>Please choose your annotation project:</div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=AngloNorman"> AngloNorman </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=FTBpyrite"> FTBpyrite </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=HKmovies_UDv2"> HKmovies_UDv2 </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=HongKongTVMandarin"> HongKongTVMandarin </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=IT-MOD"> IT-MOD </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=LearnerChinese"> LearnerChinese </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=Naija"> Naija </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=OLD-SARD"> OLD-SARD </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=Platinum"> Platinum </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=Rhapsodie"><img class='project_logo' src='projects/Rhapsodie/Rhapsodie.png' align='top'> Rhapsodie </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=SRCMF-UD"> SRCMF-UD </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=SyntaxeAlOuest"> SyntaxeAlOuest </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=UDfrench"> UDfrench </a></p></div>
-<div class="ui-widget ui-widget-content ui-corner-all" style="float:left;margin:1.2em;"><p> <a href="project.cgi?project=Uppsala"> Uppsala </a></p></div>
-<div style="clear: both;"></div>
-</div><div class='ui-state-highlight ui-corner-all' style='padding: 1em; margin: 20px;clear: both;'><a href='http://rhapsodie.ilpga.fr/wiki/Arborator'>Short usage guide (wiki page)</a></div>
-</div></div><br/>
-<div class='ui-widget ui-widget-content ui-corner-all' style='padding: 2em; margin-left: 199px; margin-right: 199px;clear: both;text-align:center;position: relative;'>
-	<p style="font-size:.7em;margin:1;">
-		<img border="0" src="images/arboratorNano.png" align='middle'>
-Arborator is free software.
-	</p><br><hr>
-	<table style='margin-top:0;width:100%'><tr><td>
-	<p style="font-size:.7em;margin:1;">
-	<a href="http://www.gnu.org/licenses/agpl-3.0.html">
-It is realeased under the 
-	</p> <p style="font-size:.7em;margin:1;">
-	
-		<img src="images/Affero_General_Public_License_3.png" align='middle'>
-licence
-	</td>
-	
-	</tr>
-	</table></a></p> <p style="font-size:.7em;margin:1;">   
-It can <a href="http://rhapsodie.ilpga.fr/wiki/Arborator#site_administration_and_installation">easily be installed on any Apache server.</a>
-	</p><p style="font-size:.7em;margin:1;">
-This software relies on your browser's SVG capacity and is written principally for use in the 
-	<img border="0" src="images/firefox.grey.png" align='middle'> 
-Firefox browser.
-	<br><br>
-	<script>
-		if (BrowserDetect.browser=="Firefox") document.write("You are using Firefox "+BrowserDetect.version+" on "+BrowserDetect.OS+". Everything should work fine.");
-		else if (BrowserDetect.browser=="Chrome") document.write("You are using Chrome "+BrowserDetect.version+" on "+BrowserDetect.OS+". This Browser is not fully tested.");
-		else document.write("You are using an unsupported browser ("+BrowserDetect.browser+" "+BrowserDetect.version+" on "+BrowserDetect.OS+"). Arborator is fully functional only on Firefox.");
-	</script>
-</p>
-<br>
-<div class="ui-widget ui-widget-content ui-corner-all"  style='
-font:italic normal .8em/1em Times, serif;text-align:center;margin:0 auto;padding:1em;'>
-	written by <a href='http://gerdes.fr'>Kim Gerdes</a><br/><br/>
-	<a href='http://www.univ-paris3.fr/'>Sorbonne nouvelle</a>,
-	<a href='http://ilpga.fr/'>ILPGA</a>,
-	<a href='http://lpp.univ-paris3.fr/'>LPP</a>
-	(<a href='http://lpp.univ-paris3.fr/'>CNRS</a>)
-	
-	<br><br>
-	
-	<a href="https://github.com/kimgerdes/arborator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-</div>
-</div>
+    <script src="js/arborator-draft.js"></script>
 
+    <!-- Custom scripts for this template -->
+    <script src="js/stylish-portfolio.js"></script>
 
+    <script>
+      var options = {
+          labelColor:'#ea2929', // deprel color
+          arrowColor : '#000', // arrow color
+          wordColor : '#000', // words color
+          lemmaColor : '#006400', // color of lemmas
+          posColor : '#9e04de', // color of part-of-speech tags
+          pathColor : '#000', // color of paths
+          pathWidth : 1, // width of syntactic paths
+          pathHeight : 23, // height of syntactic paths
+          format : {sid : 0, id : 0, word : 1, lemma : 2, pos : 3, head : 6, deprel : 7} // entry format
+      };
+    new ArboratorDraft(options);
+    </script>
 
+  </body>
 
- <br><br>
-<div class="arborfoot fg-toolbar ui-widget-header ui-helper-clearfix">
-logged in as admin
-&nbsp;&nbsp;&nbsp;<a href="/index.cgi?login=logout">logout</a>
-&nbsp;&nbsp;&nbsp;<a href="/index.cgi?login=editaccount">edit the account admin</a>
-&nbsp;&nbsp;&nbsp;<a href="/index.cgi?login=admin">User Administration</a>
-</div>
-</body></html>
+</html>
