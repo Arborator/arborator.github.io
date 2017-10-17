@@ -153,6 +153,7 @@
               <!-- <button id="reloadsvg" class="btn btn-primary" >reload svg</button> -->
               <div id="textual" class="textual">
                 <h5>Paste your conll or edit this one and the results !</h5>
+                <button class="btn btn-success btn-raised btn-xs" onclick="reverse();"><i class="fa fa-exchange" aria-hidden="true"></i></button>
                 <textarea name="conll" id="conllarea" rows="20" title="Here you can paste and edit CoNLL files with 4, 10 or 14 columns"
                   style="width:100%; height:100%; ">
 # conllu format using SpaceAfter=No
@@ -219,13 +220,17 @@
   <script src="js/stylish-portfolio.js"></script>
 
   <script>
-    var draft = new ArboratorDraft(1);
+    var draft = new ArboratorDraft(1, false);
 
     $("#conllarea").keyup(function () {
       if ($(this).val()) {
         draft.emptyThenRefresh($(this).val());
       }
     });
+
+    function reverse(){
+      draft.emptyThenRefresh($("#conllarea").val(), true);
+    }
   </script>
 
 </body>
